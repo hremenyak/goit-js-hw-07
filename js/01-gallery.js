@@ -44,13 +44,16 @@ function onGalleryContainerClick(event) {
 
   const modal = basicLightbox.create(markup, {
     onShow: (modal) => {
-      window.addEventListener("keydown", (event) => {
-        if (event.code === "Escape") {
-          modal.close();
-        }
-      });
+      window.addEventListener("keydown", onModalClick);
+    },
+    onClose: (modal) => {
+      window.removeEventListener("keydown", onModalClick);
     },
   });
-
+  function onModalClick(event) {
+    if (event.code === "Escape") {
+      modal.close();
+    }
+  }
   modal.show();
 }
